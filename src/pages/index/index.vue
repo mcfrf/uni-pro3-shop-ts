@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import customNav from '@/components/customNav.vue'
-import bannerSwiper from '@/components/bannerSwiper.vue'
-import recommend from '@/components/recommend.vue'
-import guess from '@/components/guess.vue'
-import allow from '@/components/allow.vue'
+import customNav from '@/components/index/customNav.vue'
+import bannerSwiper from '@/components/index/bannerSwiper.vue'
+import recommend from '@/components/index/recommend.vue'
+import guess from '@/components/index/guess.vue'
+import allow from '@/components/index/allow.vue'
+import indexSkeleton from '@/components/index/index-skeleton.vue'
 
 import { onLoad, onPullDownRefresh, onReachBottom, onPageScroll } from '@dcloudio/uni-app'
 import { ref, watch } from 'vue'
-import category from '@/components/category.vue'
+import category from '@/components/index/category.vue'
 import { getBannerApi, getCategoryApi, getRecommendApi, getGuessLikeApi } from '@/api/home.ts'
 import type { GuessLike, BannerItem, CategoryItem, recommendItem } from '@/types/index.d.ts'
 const list = ref<BannerItem[]>([])
@@ -71,12 +72,13 @@ const getMore = async () => {
 }
 const showAllow = ref(false)
 
-const toTop = () => {
-  console.log('回到顶部')
-  uni.pageScrollTo({ scrollTop: 0, duration: 300 })
-}
-const loadAllData = async () =>
+const isLoading = ref(false)
+const loadAllData = async () => {
+  isLoading.value = true
   await Promise.all([getBanner(), getCategory(), getRecommend(), getGuessLike()])
+  isLoading.value = false
+}
+
 onPageScroll((e) => {
   showAllow.value = e.scrollTop > 300
 })
@@ -101,15 +103,15 @@ onPullDownRefresh(async () => {
 
 <template>
   <view class="index">
-    <custom-nav></custom-nav>
-
-    <view>
-      <banner-swiper :list="list"></banner-swiper>
-      <category :categoryList="categoryList"></category>
-      <recommend :recommendList="recommendList"></recommend>
-      <guess :guessLike="guessLike" :isMore="isMore" :isFinished="isFinished"></guess>
-    </view>
-    <allow v-show="showAllow" class="show-allow" @click="toTop"></allow>
+    <custom-nav />
+    <index-skeleton v-if="isLoading" />
+    <template v-else>
+      <banner-swiper :list="list" />
+      <category :categoryList="categoryList" />
+      <recommend :recommendList="recommendList" />
+      <guess :guessLike="guessLike" :isMore="isMore" :isFinished="isFinished" />
+    </template>
+    <allow v-show="showAllow" class="show-allow" />
   </view>
 </template>
 

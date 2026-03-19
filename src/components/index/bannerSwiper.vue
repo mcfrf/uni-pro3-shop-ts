@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import type { SwiperList } from '@/types/index.d.ts'
 const props = defineProps<{
   list: SwiperList[]

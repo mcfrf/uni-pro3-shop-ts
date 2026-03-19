@@ -5,7 +5,7 @@
       <view class="grid-item" v-for="i in props.guessLike.items" :key="i.id">
         <view class="content">
           <!-- 商品图片 -->
-          <image :src="i.picture" class="img" mode="widthFix"></image>
+          <image :src="i.picture" class="img" :lazy-load="true" mode="widthFix"></image>
           <!-- 文字区域 -->
           <view class="font">
             <view class="name ellipsis-dynamic" :style="{ '--line-clamp': 2 }">
@@ -46,7 +46,7 @@ const is = computed(() => {
     font-weight: bold;
     color: #2c8290;
     width: 100%;
-    padding: 10rpx 0 60rpx 0rpx;
+    padding: 10rpx 0 30rpx 0rpx;
     text-align: center;
   }
 

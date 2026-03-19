@@ -1,7 +1,12 @@
 <template>
   <view class="recommend">
     <view class="grid">
-      <view class="grid-item" v-for="i in recommendList" :key="i.id">
+      <view
+        class="grid-item"
+        v-for="(i, index) in recommendList"
+        :key="i.id"
+        @click="goDetail((index + 1).toString())"
+      >
         <view class="title">
           <text class="title-text">{{ i.title }}</text>
           <text class="title-alt">{{ i.alt }}</text>
@@ -16,9 +21,15 @@
 
 <script lang="ts" setup>
 import type { recommendItem } from '@/types/index.d.ts'
+
 const props = defineProps<{
   recommendList: recommendItem[]
 }>()
+const goDetail = (id: string) => {
+  uni.navigateTo({
+    url: '/pages/hot/hot?id=' + id,
+  })
+}
 </script>
 
 <style lang="scss">
