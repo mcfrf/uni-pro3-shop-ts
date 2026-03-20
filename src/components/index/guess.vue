@@ -5,7 +5,13 @@
       <view class="grid-item" v-for="i in props.guessLike.items" :key="i.id">
         <view class="content">
           <!-- 商品图片 -->
-          <image :src="i.picture" class="img" :lazy-load="true" mode="widthFix"></image>
+          <image
+            @click="toDetail(i.id)"
+            :src="i.picture"
+            class="img"
+            :lazy-load="true"
+            mode="widthFix"
+          ></image>
           <!-- 文字区域 -->
           <view class="font">
             <view class="name ellipsis-dynamic" :style="{ '--line-clamp': 2 }">
@@ -37,6 +43,11 @@ const is = computed(() => {
   if (props.isFinished) return 'ff'
   return props.isMore
 })
+const toDetail = (id: string) => {
+  uni.navigateTo({
+    url: '/pages/goods/goods?id=' + id,
+  })
+}
 </script>
 
 <style lang="scss">
