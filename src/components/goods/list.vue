@@ -1,5 +1,5 @@
 <template>
-  <view class="list" v-if="arr">
+  <view class="list" v-if="props.goods">
     <view class="card1">
       <view class="name d">{{ props.goods?.name }}</view>
       <view class="desc d">{{ props.goods?.desc }}</view>
@@ -20,7 +20,12 @@
         </view>
       </view>
       <view class="imgList">
-        <image v-for="i in props.goods?.details?.pictures" :key="i" :src="i" mode="widthFix" />
+        <image
+          v-for="i in props.goods?.details?.pictures || []"
+          :key="i"
+          :src="i"
+          mode="widthFix"
+        />
       </view>
     </view>
   </view>
