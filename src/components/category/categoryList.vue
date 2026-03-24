@@ -119,7 +119,7 @@ const onClick = (id: number) => {
     }
   }
   .main {
-    padding-bottom: 130rpx;
+    padding-bottom: 90rpx;
     flex: 1;
     margin: 0 20rpx;
     height: 100%;

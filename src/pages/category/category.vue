@@ -14,7 +14,9 @@ import categoryList from '@/components/category/categoryList.vue'
 .category {
   background-color: white;
   padding: 20rpx 0;
-  height: 88.6vh;
-  overflow: hidden;
+
+  /* height: 88.6vh; */
+  height: 100vh;
+  padding-bottom: 100rpx;
 }
 </style>

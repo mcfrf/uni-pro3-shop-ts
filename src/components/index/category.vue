@@ -17,6 +17,7 @@ const props = defineProps<{
 .category {
   margin: 20rpx 0;
   padding: 20rpx;
+  max-height: 400rpx;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100rpx, 1fr));
   gap: 20rpx 50rpx;

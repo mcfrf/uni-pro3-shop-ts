@@ -28,8 +28,16 @@ const getBanner = async () => {
 }
 const getCategory = async () => {
   const res = await getCategoryApi()
+  // #ifdef MP-WEIXIN
+  categoryList.value = res.result.map((i) => {
+    i.icon = i.icon.replace(/\?.*$/, '')
+    return i
+  })
+  // #endif
+  //#ifdef H5
   categoryList.value = res.result
-  console.log('category', res)
+  //#endif
+  console.log('category', res.result[0].icon)
 }
 const getRecommend = async () => {
   const res = await getRecommendApi()
